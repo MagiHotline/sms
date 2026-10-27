@@ -220,7 +220,7 @@ u32 TMapObjBall::touchWater(THitActor* water)
 
 	JGeometry::TVec3<f32> vel;
 	vel.set(getVelocity());
-	vel.scaleAdd(unk17C, vel, getWaterSpeed(water));
+	vel.scaleAdd(unk17C, getWaterSpeed(water), vel);
 	setVelocity(vel);
 	offLiveFlag(LIVE_FLAG_UNK10);
 	return 1;
@@ -364,8 +364,8 @@ void TMapObjBall::checkWallCollision(JGeometry::TVec3<f32>* wall)
 	                              mMapObjData->mPhysical->mWallCheckFlags);
 	if (gpMap->isTouchedWallsAndMoveXZ(&wallRecord)) {
 		unk138  = wallRecord.mResultWalls[0];
-		wall->x = wallRecord.mCenter.x;
-		wall->z = wallRecord.mCenter.z;
+		wall->x = center.x;
+		wall->z = center.z;
 		touchWall(wall, &wallRecord);
 	} else {
 		unk138 = nullptr;
